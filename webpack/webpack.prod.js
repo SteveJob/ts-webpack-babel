@@ -1,13 +1,12 @@
 /**
- * Created by Administrator on 2017/5/12.
+ * Created by Administrator on 2017/5/16.
  */
-const path = require('path')
-const webpack = require('webpack')
-// console.log(__dirname, __dirname + "/build")
+let webpack = require('webpack')
+var path = require('path')
 module.exports = {
     entry: './src/modules/core/index.tsx',
     output: {
-        path: __dirname + "/build",
+        path: path.resolve(__dirname, "../build"),
         filename: 'bundle.js',
         publicPath: "/build/"
     },
@@ -17,25 +16,12 @@ module.exports = {
             loader: 'ts-loader',
             exclude: '/node_modules'
         }, {
-            test: /\.jsx$/,
-            loader: 'babel-loader'
+            enforce: 'pre',
+            test: /\.js$/,
+            loader: 'source-map-loader'
         }, {
             test: /\.less$/,
-            use: [{
-                loader: "style-loader"
-            }, {
-                loader: "css-loader",
-                options: {
-                    sourceMap: true,
-                    modules: true
-                }
-            }, {
-                loader: "less-loader",
-                options: {
-                    sourceMap: true,
-                    modules: true
-                }
-            }]
+            use: ['style-loader', 'css-loader', 'less-loader']
         }]
     },
     resolve: {
@@ -51,7 +37,8 @@ module.exports = {
     ],
     devServer: {
         compress: true,
-        port: 8088
+        port: 8088,
+        publicPath: ""
     },
     externals: {
         "react": "React",

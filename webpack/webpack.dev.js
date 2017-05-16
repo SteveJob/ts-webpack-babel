@@ -1,13 +1,13 @@
 /**
- * Created by Administrator on 2017/5/12.
+ * Created by Administrator on 2017/5/16.
  */
-const path = require('path')
-const webpack = require('webpack')
-// console.log(__dirname, __dirname + "/build")
+var webpack = require('webpack')
+var path = require('path')
+
 module.exports = {
     entry: './src/modules/core/index.tsx',
     output: {
-        path: __dirname + "/build",
+        path: path.resolve(__dirname, "../build"),
         filename: 'bundle.js',
         publicPath: "/build/"
     },
@@ -17,8 +17,9 @@ module.exports = {
             loader: 'ts-loader',
             exclude: '/node_modules'
         }, {
-            test: /\.jsx$/,
-            loader: 'babel-loader'
+            enforce: 'pre',
+            test: /\.js$/,
+            loader: 'source-map-loader'
         }, {
             test: /\.less$/,
             use: [{
@@ -26,14 +27,12 @@ module.exports = {
             }, {
                 loader: "css-loader",
                 options: {
-                    sourceMap: true,
-                    modules: true
+                    sourceMap: true
                 }
             }, {
                 loader: "less-loader",
                 options: {
-                    sourceMap: true,
-                    modules: true
+
                 }
             }]
         }]
@@ -51,8 +50,13 @@ module.exports = {
     ],
     devServer: {
         compress: true,
-        port: 8088
+        port: 8088,
+        //设置为true，当源文件改变时会自动刷新页面
+        inline: true,
+        // 在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
+        historyApiFallback: true
     },
+    devtool: 'cheap-module-source-map',
     externals: {
         "react": "React",
         "react-dom": "ReactDOM"

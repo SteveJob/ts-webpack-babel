@@ -4,14 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --no-inline",
-    "production": "webpack ",
+    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "build:dev": "webpack --config webpack.common.js --env=dev --progress --color --profile",
+    "build:prod": "webpack --config webpack.common.js --env=prod --progress --color --profile"
   },
   "author": "",
   "license": "ISC",
+  "options": {
+    "port": 443,
+    "dist": "dist",
+    "https": true
+  },
   "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
@@ -20,11 +29,13 @@
     "ts-loader": "^2.0.3",
     "typescript": "^2.3.2",
     "webpack": "^2.5.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-server": "^2.4.5",
+    "webpack-merge": "^4.1.0"
   },
   "dependencies": {
     "@types/react": "^15.0.24",
     "@types/react-dom": "^15.5.0",
+    "antd": "^2.10.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   }
