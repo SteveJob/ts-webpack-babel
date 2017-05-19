@@ -5,7 +5,7 @@ const path = require('path')
 const webpack = require('webpack')
 // console.log(__dirname, __dirname + "/build")
 module.exports = {
-    entry: './src/modules/core/index.tsx',
+    entry: './src/index.tsx',
     output: {
         path: __dirname + "/build",
         filename: 'bundle.js',
