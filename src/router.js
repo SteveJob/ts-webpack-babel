@@ -6,6 +6,33 @@ import { Route, Router, IndexRoute } from 'react-router'
 import React, { Component } from 'react'
 import { getRouterMenu } from './actions/routerMenu/RouterMenuAction'
 
+import DasgboardPage from './modules/core/Dashboard'
+function lazyLoadCOmponent(lazyLoad, a) {
+
+    return (loc, callback) => {
+        lazyLoad(module => callback(loc, module.default))
+    }
+
+}
+
+class AppRouter extends Component {
+    componentWillMount() {
+        const { dispatch } = this.props
+        dispatch(getRouterMenu({}))
+    }
+
+    getChildContext() {
+        const {user, menu, breadCrumb} = this.props
+    }
+
+}
+
+AppRouter.childContextTypes = {
+    user: React.PropTypes.object,
+    menu: React.PropTypes.array,
+    breadCrumb: React.PropTypes.object
+}
+
 // import React, { Component } from 'react';
 // import {
 //     Router,
